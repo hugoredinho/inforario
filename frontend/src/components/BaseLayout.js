@@ -29,9 +29,9 @@ class BaseLayout extends React.Component {
   render(){
     console.log("Calling render...");
     return (
-      <div className="BaseLayout">
-        <this.LogInButtonComponent></this.LogInButtonComponent>
-    </div>
+        <div className="BaseLayout">
+            <this.LogInButtonComponent></this.LogInButtonComponent>
+        </div>
     );
   }
 }
