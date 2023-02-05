@@ -1,3 +1,5 @@
 inforario_env/*
 
 front_end/node_modules/*
+
+.env
