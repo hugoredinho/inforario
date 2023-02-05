@@ -4,7 +4,7 @@ import { Amplify } from 'aws-amplify';
 import { RequireAuth } from "./components/RequireAuth";
 import { Login } from "./components/Login";
 import awsExports from './aws-exports';
-import PaginaTempo from "./components/PaginaTempo";
+import PaginaHorario from "./components/PaginaHorario";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import BaseLayout from "./components/BaseLayout";
 
@@ -22,11 +22,13 @@ function MyRoutes() {
         element={<Login />} />
 
         <Route 
-        path="/PaginaTempo" 
+        path="/Horario" 
         element={
           <RequireAuth>
-        <PaginaTempo />
+        <PaginaHorario />
         </RequireAuth>} />
+
+
 
 
       </Routes>
