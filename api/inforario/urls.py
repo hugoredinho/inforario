@@ -20,4 +20,5 @@ from inforario import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('verHorarios', views.ver_horarios),
+    path('adicionarHorario', views.criar_novo_horario),
 ]
