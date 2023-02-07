@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import TopNavBar from './TopNavBar';
 import axios from 'axios';
 import { getUsernameFromLocalStorageSettings } from '../auxiliar_files/LocalStorage';
+import $ from 'jquery';
+import { Aula, Cadeira, Curso} from '../auxiliar_files/ObjectStrucutre';
 
 class PaginaHorario extends React.Component {
   state = {
@@ -55,7 +57,57 @@ class PaginaHorario extends React.Component {
         console.log(response);
       })
       .catch((error) => console.log(error));
+
+    //TODO CHANGE THIS TO ONLY RELOAD THE HORARIOS COMPONENT INSTEAD OF RELOADING WHOLE PAGE
+
+    window.location.reload();
   }
+
+  handlePaste = (event) => {
+    console.log("Fez isto");
+
+    var string = event.clipboardData.getData('text');
+
+    var nome_numero_cadeira = $('[class="subtitle"]',string)[0].innerText.trim();
+    var nome_cadeira = nome_numero_cadeira.split(" - ")[0].trim();
+    var numero_cadeira = nome_numero_cadeira.split(" - ")[1].trim();
+
+    var unidade_organica =  $('[class="cellcontentSmall"]',string)[0].innerText.trim();
+    var regime_semestre =  $('[class="cellcontentSmall"]',string)[1].innerText.trim();
+
+    var docente_responsavel = $('[class="cellcontent"]',string)[0].innerText.trim();
+
+    var cursos = $('[class="cellcontent"]',string)[1].innerText;
+
+    var lista_cursos = cursos.split("\n");
+
+    console.log(lista_cursos);
+
+    var cadeira_estrutura = Cadeira;
+    cadeira_estrutura.departamento = unidade_organica;
+    cadeira_estrutura.regime = regime_semestre;
+    cadeira_estrutura.nome = nome_cadeira;
+    cadeira_estrutura.numero = numero_cadeira;
+    cadeira_estrutura.docente_responsavel = docente_responsavel;
+
+    cadeira_estrutura.cursos = [];
+
+    for (let i=0;i< lista_cursos.length; i++){;
+      var nome_curso = lista_cursos[i].trim();
+
+      if (nome_curso.length > 2){
+        cadeira_estrutura.cursos.push({
+          nome: lista_cursos[i].trim()
+        });
+      }
+    }
+
+    //console.log(nome_cadeira,numero_cadeira);
+    //console.log(unidade_organica, regime_semestre);
+    console.log(cadeira_estrutura);
+
+
+  };
 
 
   render(){
@@ -86,6 +138,9 @@ class PaginaHorario extends React.Component {
 
           <input type="text" id="nomeHorario"></input>
           <button onClick={() => this.adicionarHorario()}>Adicionar Horario</button>
+        
+          <input onPaste = {this.handlePaste} type="text" id = "adicionarCadeira"></input>
+          <button >Adicionar Cadeira</button>  
 
           </header>
         </div>

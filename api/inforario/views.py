@@ -8,6 +8,7 @@ from datetime import datetime
 import os
 from dotenv import load_dotenv
 import boto3
+from decimal import Decimal
 
 load_dotenv()
 
@@ -35,13 +36,17 @@ def ver_horarios(request):
     request_data = request.data
     username = request_data["username"]
 
-    client, dynamodb, ddb_exceptions = start()
+    '''client, dynamodb, ddb_exceptions = start()
 
     table = dynamodb.Table("Horarios") 
 
     response = table.scan()
 
-    data = response['Items']
+    data = response['Items']'''
+
+    #print(data)
+
+    data = [{'username': 'hred5', 'numberId': Decimal('3'), 'nomeHorario': '4semestre'}, {'username': 'hred5', 'numberId': Decimal('2'), 'nomeHorario': '1semestre'}, {'username': 'hred5', 'numberId': Decimal('1'), 'nomeHorario': '3semestre'}, {'username': 'hred5', 'numberId': Decimal('0'), 'nomeHorario': '2semestre'}]
 
     horario_list = list()
 
